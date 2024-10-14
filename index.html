@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Marketing Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="theme-toggle">
+        <i class="fas fa-sun" id="light-icon"></i>
+        <i class="fas fa-moon" id="dark-icon"></i>
+    </div>
+    <header>
+        <h1>Calculadora de Marketing Digital</h1>
+    </header>
+
+    <main>
+        <div class="metric-buttons">
+            <button data-metric="cpc" title="Coste por Clic">CPC</button>
+            <button data-metric="ctr" title="Click-Through Rate">CTR</button>
+            <button data-metric="roas" title="Return on Ad Spend">ROAS</button>
+            <button data-metric="cpa" title="Coste por Adquisición">CPA</button>
+            <button data-metric="conversionRate" title="Tasa de Conversión">Tasa de Conversión</button>
+            <button data-metric="cpm" title="Coste por Mil Impresiones">CPM</button>
+            <button data-metric="roi" title="Retorno de Inversión">ROI</button>
+        </div>
+
+        <section id="form-container">
+
+        <section id="form-container">
+            <div class="form-wrapper" id="form-cpc">
+                <h2>Coste por Clic (CPC)</h2>
+                <form id="form-cpc-calculate">
+                    <label for="cpc-coste">Coste Total (€):</label>
+                    <input type="number" id="cpc-coste" required>
+                    <label for="cpc-clics">Número de Clics:</label>
+                    <input type="number" id="cpc-clics" required>
+                    <button type="submit">Calcular CPC</button>
+                </form>
+            </div>
+
+            <div class="form-wrapper" id="form-ctr">
+                <h2>Click-Through Rate (CTR)</h2>
+                <form id="form-ctr-calculate">
+                    <label for="ctr-clics">Número de Clics:</label>
+                    <input type="number" id="ctr-clics" required>
+                    <label for="ctr-impresiones">Número de Impresiones:</label>
+                    <input type="number" id="ctr-impresiones" required>
+                    <button type="submit">Calcular CTR</button>
+                </form>
+            </div>
+
+            <div class="form-wrapper" id="form-roas">
+                <h2>Return on Ad Spend (ROAS)</h2>
+                <form id="form-roas-calculate">
+                    <label for="roas-ingresos">Ingresos (€):</label>
+                    <input type="number" id="roas-ingresos" required>
+                    <label for="roas-gastos">Gastos en Publicidad (€):</label>
+                    <input type="number" id="roas-gastos" required>
+                    <button type="submit">Calcular ROAS</button>
+                </form>
+            </div>
+
+            <div class="form-wrapper" id="form-cpa">
+                <h2>Coste por Adquisición (CPA)</h2>
+                <form id="form-cpa-calculate">
+                    <label for="cpa-gastos">Gastos en Publicidad (€):</label>
+                    <input type="number" id="cpa-gastos" required>
+                    <label for="cpa-conversiones">Número de Conversiones:</label>
+                    <input type="number" id="cpa-conversiones" required>
+                    <button type="submit">Calcular CPA</button>
+                </form>
+            </div>
+
+            <div class="form-wrapper" id="form-conversionRate">
+                <h2>Tasa de Conversión</h2>
+                <form id="form-conversionRate-calculate">
+                    <label for="conversionRate-conversiones">Número de Conversiones:</label>
+                    <input type="number" id="conversionRate-conversiones" required>
+                    <label for="conversionRate-visitantes">Número de Visitantes:</label>
+                    <input type="number" id="conversionRate-visitantes" required>
+                    <button type="submit">Calcular Tasa de Conversión</button>
+                </form>
+            </div>
+
+            <div class="form-wrapper" id="form-cpm">
+                <h2>Coste por Mil Impresiones (CPM)</h2>
+                <form id="form-cpm-calculate">
+                    <label for="cpm-coste">Coste Total (€):</label>
+                    <input type="number" id="cpm-coste" required>
+                    <label for="cpm-impresiones">Número de Impresiones:</label>
+                    <input type="number" id="cpm-impresiones" required>
+                    <button type="submit">Calcular CPM</button>
+                </form>
+            </div>
+
+            <div class="form-wrapper" id="form-roi">
+                <h2>Retorno de Inversión (ROI)</h2>
+                <form id="form-roi-calculate">
+                    <label for="roi-ganancias">Ganancias (€):</label>
+                    <input type="number" id="roi-ganancias" required>
+                    <label for="roi-inversion">Inversión (€):</label>
+                    <input type="number" id="roi-inversion" required>
+                    <button type="submit">Calcular ROI</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="result-section">
+            <h2>Resultados</h2>
+            <div id="resultados"></div>
+            <canvas id="resultChart"></canvas>
+            <div id="share-buttons">
+        </section>
+
+        <section id="history-section">
+            <h2>Historial de Cálculos</h2>
+            <ul id="calculation-history"></ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Calculadora de Marketing Digital</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

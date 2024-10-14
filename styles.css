@@ -1,0 +1,291 @@
+:root {
+    --primary-color: #007BFF; /* Color de acento brillante */
+    --text-color: #333333; /* Color de texto oscuro */
+    --background-color: #ffffff; /* Fondo claro */
+    --button-bg-color: #F8F9FA; /* Color de fondo de botones en modo claro */
+    --chart-color: #79A278; /* Color de gráfico */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Estilos para el modo oscuro */
+body.dark-mode {
+    --background-color: #181818; /* Fondo oscuro */
+    --text-color: #F1F1F1; /* Color de texto claro */
+    --button-bg-color: #242424; /* Color de fondo de botones en modo oscuro */
+    --chart-color: #007BFF; /* Color de gráfico en modo oscuro */
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-weight: 700;
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+h2 {
+    color: var(--primary-color);
+    text-align: center;
+    margin: 1rem 0;
+    font-size: 1.8rem;
+}
+
+/* Tema para el botón de modo oscuro */
+#theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: orange;
+}
+
+#theme-toggle i {
+    transition: opacity 0.3s ease;
+}
+
+#dark-icon {
+    display: none;
+}
+
+body.dark-mode #light-icon {
+    display: none;
+}
+
+body.dark-mode #dark-icon {
+    display: inline;
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.metric-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.metric-buttons button {
+    background-color: var(--button-bg-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.metric-buttons button:hover, .metric-buttons button.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.form-wrapper {
+    display: none;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+.dark-mode .form-wrapper {
+    background-color: var(--button-bg-color);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.5rem 0 1rem;
+    border: 2px solid var(--button-bg-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+button[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3; /* Un tono más oscuro para el efecto hover */
+}
+
+#result-section, #history-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+.dark-mode #result-section, .dark-mode #history-section {
+    background-color: var(--button-bg-color);
+}
+
+#resultados {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#resultChart {
+    max-width: 100%;
+    height: 300px;
+    margin-bottom: 1rem;
+}
+
+#share-buttons, #export-csv {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+#share-buttons button, #export-csv {
+    background-color: var(--button-bg-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+#share-buttons button:hover, #export-csv:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+#calculation-history {
+    list-style-type: none;
+    padding: 0;
+}
+
+#calculation-history li {
+    background-color: var(--button-bg-color);
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.dark-mode #calculation-history li {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Estilos para el icono de tema */
+#theme-toggle {
+    font-size: 24px; /* Tamaño del icono */
+    position: fixed; /* Fijo para que esté visible */
+    top: 20px; /* Ajusta según sea necesario */
+    right: 20px; /* Ajusta según sea necesario */
+    z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+    cursor: pointer; /* Cambiar el cursor a puntero */
+    transition: opacity 0.5s; /* Transición suave */
+}
+
+/* Ocultar icono de Luna por defecto */
+#dark-icon {
+    display: none;
+}
+
+/* Transiciones suaves entre iconos */
+#theme-toggle i {
+    transition: opacity 0.5s; /* Transición suave entre iconos */
+}
+
+/* Updated styles for the copy button */
+#copy-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+}
+
+#copy-button:hover {
+    background-color: #0056b3; /* Un tono más oscuro para el efecto hover */
+}
+
+/* Updated styles for calculation history */
+#history-section {
+    background-color: var(--button-bg-color);
+    padding: 1rem;
+    border-radius: 5px;
+    margin-top: 2rem;
+}
+
+#calculation-history {
+    list-style-type: none;
+    padding: 0;
+}
+
+#calculation-history li {
+    background-color: var(--background-color);
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.dark-mode #calculation-history li {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
