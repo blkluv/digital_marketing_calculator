@@ -10,29 +10,35 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div id="theme-toggle">
-        <i class="fas fa-sun" id="light-icon"></i>
-        <i class="fas fa-moon" id="dark-icon"></i>
+    <div id="theme-toggle" aria-label="Cambiar entre modo claro y oscuro">
+        <i id="light-icon" class="fas fa-sun" aria-hidden="true"></i>
+        <i id="dark-icon" class="fas fa-moon" aria-hidden="true"></i>
     </div>
+    
+    <div id="reset-button" aria-label="Reiniciar cálculos">
+        <i class="fas fa-undo"></i>
+    </div>
+
     <header>
         <h1>Calculadora de Marketing Digital</h1>
     </header>
 
     <main>
         <div class="metric-buttons">
-            <button data-metric="cpc" title="Coste por Clic">CPC</button>
-            <button data-metric="ctr" title="Click-Through Rate">CTR</button>
-            <button data-metric="roas" title="Return on Ad Spend">ROAS</button>
-            <button data-metric="cpa" title="Coste por Adquisición">CPA</button>
-            <button data-metric="conversionRate" title="Tasa de Conversión">Tasa de Conversión</button>
-            <button data-metric="cpm" title="Coste por Mil Impresiones">CPM</button>
-            <button data-metric="roi" title="Retorno de Inversión">ROI</button>
+            <button data-metric="cpc">CPC</button>
+            <button data-metric="ctr">CTR</button>
+            <button data-metric="roas">ROAS</button>
+            <button data-metric="cpa">CPA</button>
+            <button data-metric="conversionRate">Tasa de Conversión</button>
+            <button data-metric="cpm">CPM</button>
+            <button data-metric="roi">ROI</button>
+            <button data-metric="cpl">CPL</button>
+            <button data-metric="atc">% ATC</button>
         </div>
 
-        <section id="form-container">
-
-        <section id="form-container">
-            <div class="form-wrapper" id="form-cpc">
+        <!-- Formularios de cálculos -->
+        <div id="form-container">
+            <div id="form-cpc" class="form-wrapper">
                 <h2>Coste por Clic (CPC)</h2>
                 <form id="form-cpc-calculate">
                     <label for="cpc-coste">Coste Total (€):</label>
@@ -43,7 +49,7 @@
                 </form>
             </div>
 
-            <div class="form-wrapper" id="form-ctr">
+            <div id="form-ctr" class="form-wrapper">
                 <h2>Click-Through Rate (CTR)</h2>
                 <form id="form-ctr-calculate">
                     <label for="ctr-clics">Número de Clics:</label>
@@ -54,7 +60,7 @@
                 </form>
             </div>
 
-            <div class="form-wrapper" id="form-roas">
+            <div id="form-roas" class="form-wrapper">
                 <h2>Return on Ad Spend (ROAS)</h2>
                 <form id="form-roas-calculate">
                     <label for="roas-ingresos">Ingresos (€):</label>
@@ -65,7 +71,7 @@
                 </form>
             </div>
 
-            <div class="form-wrapper" id="form-cpa">
+            <div id="form-cpa" class="form-wrapper">
                 <h2>Coste por Adquisición (CPA)</h2>
                 <form id="form-cpa-calculate">
                     <label for="cpa-gastos">Gastos en Publicidad (€):</label>
@@ -76,7 +82,7 @@
                 </form>
             </div>
 
-            <div class="form-wrapper" id="form-conversionRate">
+            <div id="form-conversionRate" class="form-wrapper">
                 <h2>Tasa de Conversión</h2>
                 <form id="form-conversionRate-calculate">
                     <label for="conversionRate-conversiones">Número de Conversiones:</label>
@@ -87,7 +93,7 @@
                 </form>
             </div>
 
-            <div class="form-wrapper" id="form-cpm">
+            <div id="form-cpm" class="form-wrapper">
                 <h2>Coste por Mil Impresiones (CPM)</h2>
                 <form id="form-cpm-calculate">
                     <label for="cpm-coste">Coste Total (€):</label>
@@ -98,7 +104,7 @@
                 </form>
             </div>
 
-            <div class="form-wrapper" id="form-roi">
+            <div id="form-roi" class="form-wrapper">
                 <h2>Retorno de Inversión (ROI)</h2>
                 <form id="form-roi-calculate">
                     <label for="roi-ganancias">Ganancias (€):</label>
@@ -108,23 +114,45 @@
                     <button type="submit">Calcular ROI</button>
                 </form>
             </div>
-        </section>
 
-        <section id="result-section">
+            <div id="form-cpl" class="form-wrapper">
+                <h2>Coste por Lead (CPL)</h2>
+                <form id="form-cpl-calculate">
+                    <label for="cpl-coste">Coste Total (€):</label>
+                    <input type="number" id="cpl-coste" required>
+                    <label for="cpl-leads">Número de Leads:</label>
+                    <input type="number" id="cpl-leads" required>
+                    <button type="submit">Calcular CPL</button>
+                </form>
+            </div>
+
+            <div id="form-atc" class="form-wrapper">
+                <h2>Porcentaje de Add to Cart (% ATC)</h2>
+                <form id="form-atc-calculate">
+                    <label for="atc-clicks">Número de Clics:</label>
+                    <input type="number" id="atc-clicks" required>
+                    <label for="atc-events">Eventos de Add to Cart:</label>
+                    <input type="number" id="atc-events" required>
+                    <button type="submit">Calcular % ATC</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sección de resultados y gráfico -->
+        <div id="result-section">
             <h2>Resultados</h2>
             <div id="resultados"></div>
             <canvas id="resultChart"></canvas>
-            <div id="share-buttons">
-        </section>
+        </div>
 
-        <section id="history-section">
+        <div id="history-section">
             <h2>Historial de Cálculos</h2>
             <ul id="calculation-history"></ul>
-        </section>
+        </div>
     </main>
 
     <footer>
-        <p>&copy; 2024 Calculadora de Marketing Digital</p>
+        <p>© 2024 Calculadora de Marketing Digital</p>
     </footer>
 
     <script src="script.js"></script>
