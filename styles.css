@@ -1,3 +1,4 @@
+/* Variables de color */
 :root {
     --primary-color: #007BFF;
     --text-color: #333333;
@@ -9,6 +10,7 @@
     --body-bg-color: #f0f0f0;
 }
 
+/* Estilos generales */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--body-bg-color);
@@ -19,6 +21,7 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Modo oscuro */
 body.dark-mode {
     --text-color: #F1F1F1;
     --background-color: #181818;
@@ -27,6 +30,7 @@ body.dark-mode {
     --body-bg-color: #121212;
 }
 
+/* Encabezado */
 header {
     background-color: var(--primary-color);
     color: white;
@@ -35,12 +39,14 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Contenido principal */
 main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
 }
 
+/* Botones de métricas */
 .metric-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -66,6 +72,7 @@ main {
     color: white;
 }
 
+/* Formularios y secciones */
 .form-wrapper, #result-section, #history-section {
     background-color: var(--section-bg-color);
     padding: 2rem;
@@ -77,12 +84,14 @@ main {
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+/* Modo oscuro para formularios y secciones */
 body.dark-mode .form-wrapper,
 body.dark-mode #result-section,
 body.dark-mode #history-section {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Estilos de formularios */
 form {
     display: flex;
     flex-direction: column;
@@ -127,6 +136,7 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+/* Sección de resultados */
 #resultados {
     font-size: 1.2rem;
     font-weight: 600;
@@ -141,6 +151,7 @@ button[type="submit"]:hover {
     margin: 2rem 0;
 }
 
+/* Historial de cálculos */
 #calculation-history {
     list-style-type: none;
     padding: 0;
@@ -154,8 +165,10 @@ button[type="submit"]:hover {
     transition: all 0.3s ease;
 }
 
+/* Botones de tema y reinicio */
 #theme-toggle, #reset-button {
-    position: fixed;
+    position: absolute;
+    top: 20px;
     font-size: 24px;
     cursor: pointer;
     z-index: 1000;
@@ -171,12 +184,10 @@ button[type="submit"]:hover {
 }
 
 #theme-toggle {
-    top: 20px;
     right: 20px;
 }
 
 #reset-button {
-    top: 20px;
     left: 20px;
 }
 
@@ -188,6 +199,7 @@ button[type="submit"]:hover {
     color: var(--icon-color);
 }
 
+/* Iconos de tema */
 #dark-icon {
     display: none;
 }
@@ -200,6 +212,7 @@ body.dark-mode #light-icon {
     display: none;
 }
 
+/* Pie de página */
 footer {
     text-align: center;
     padding: 1rem;
