@@ -219,3 +219,111 @@ footer {
     background-color: var(--primary-color);
     color: white;
 }
+
+/* Ajustes generales de padding */
+@media screen and (max-width: 768px) {
+    main {
+      padding: 1rem;
+    }
+    
+    .form-wrapper, #result-section, #history-section {
+      padding: 1.25rem;
+    }
+  }
+  
+  /* Reducción del tamaño de los botones de tema y reinicio */
+  @media screen and (max-width: 768px) {
+    #theme-toggle, #reset-button {
+      width: 32px;
+      height: 32px;
+      font-size: 18px;
+    }
+  }
+  
+  /* Estilos para el acordeón de métricas */
+  @media screen and (max-width: 768px) {
+    .metric-buttons {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  
+    .metric-buttons button {
+      width: 100%;
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      position: relative;
+    }
+  
+    /* Hacer los botones más compactos */
+    .metric-buttons button {
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+  
+    /* Añadir icono de flecha para indicar expansión */
+    .metric-buttons button::after {
+      content: '▼';
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+  
+    /* Ocultar todos los formularios inicialmente */
+    .form-wrapper {
+      display: none;
+    }
+  
+    /* Mostrar solo el formulario activo */
+    .form-wrapper.active {
+      display: block;
+    }
+  }
+  
+  /* Ajustes adicionales para pantallas muy pequeñas */
+  @media screen and (max-width: 480px) {
+    main {
+      padding: 0.75rem;
+    }
+    
+    .form-wrapper, #result-section, #history-section {
+      padding: 1rem;
+    }
+  
+    /* Hacer los inputs más compactos */
+    input[type="number"] {
+      padding: 0.6rem;
+      margin: 0.3rem 0 0.8rem;
+    }
+  
+    /* Reducir el espacio entre elementos */
+    label {
+      margin-top: 0.75rem;
+    }
+  
+    button[type="submit"] {
+      padding: 0.8rem;
+    }
+  }
+
+  .benchmark-positive {
+    color: green;
+    font-weight: bold;
+}
+
+.benchmark-negative {
+    color: red;
+    font-weight: bold;
+}
+
+#resultChart {
+    max-width: 100%;
+    height: 300px;
+    margin: 2rem 0;
+}
+
+  
+  
