@@ -58,191 +58,191 @@
         </div>
 
         <!-- Formularios de cálculos -->
-        <div id="form-acos" class="form-wrapper" hidden>
+        <div id="form-acos" class="form-wrapper" hidden style="display: none;">
             <h2>Average Cost of Sale (ACOS)</h2>
             <form id="form-acos-calculate">
                 <label for="acos-totalCost">Total Cost (€):</label>
-                <input type="number" id="acos-totalCost" required>
+                <input type="number" id="acos-totalCost" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="acos-totalRevenue">Total Revenue (€):</label>
-                <input type="number" id="acos-totalRevenue" required>
+                <input type="number" id="acos-totalRevenue" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular ACOS</button>
             </form>
         </div>
         
-        <div id="form-adRank" class="form-wrapper" hidden>
+        <div id="form-adRank" class="form-wrapper" hidden style="display: none;">
             <h2>Ad Rank</h2>
             <form id="form-adRank-calculate">
                 <label for="adRank-cpcBid">CPC Bid (€):</label>
-                <input type="number" id="adRank-cpcBid" required>
+                <input type="number" id="adRank-cpcBid" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="adRank-qualityScore">Quality Score:</label>
-                <input type="number" id="adRank-qualityScore" required>
+                <input type="number" id="adRank-qualityScore" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular Ad Rank</button>
             </form>
         </div>
         
-        <div id="form-aov" class="form-wrapper" hidden>
+        <div id="form-aov" class="form-wrapper" hidden style="display: none;">
             <h2>Average Order Value (AOV)</h2>
             <form id="form-aov-calculate">
                 <label for="aov-totalRevenue">Total Revenue (€):</label>
-                <input type="number" id="aov-totalRevenue" required>
+                <input type="number" id="aov-totalRevenue" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="aov-totalConversions">Total Conversions:</label>
-                <input type="number" id="aov-totalConversions" required>
+                <input type="number" id="aov-totalConversions" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular AOV</button>
             </form>
         </div>
         
-        <div id="form-atc" class="form-wrapper" hidden>
+        <div id="form-atc" class="form-wrapper" hidden style="display: none;">
             <h2>Porcentaje de Add to Cart (% ATC)</h2>
             <form id="form-atc-calculate">
                 <label for="atc-clicks">Número de Clics:</label>
-                <input type="number" id="atc-clicks" required>
+                <input type="number" id="atc-clicks" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="atc-events">Eventos de Add to Cart:</label>
-                <input type="number" id="atc-events" required>
+                <input type="number" id="atc-events" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular % ATC</button>
             </form>
         </div>
         
-        <div id="form-cpa" class="form-wrapper" hidden>
+        <div id="form-cpa" class="form-wrapper" hidden style="display: none;">
             <h2>Coste por Adquisición (CPA)</h2>
             <form id="form-cpa-calculate">
                 <label for="cpa-gastos">Gastos en Publicidad (€):</label>
-                <input type="number" id="cpa-gastos" required>
+                <input type="number" id="cpa-gastos" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="cpa-conversiones">Número de Conversiones:</label>
-                <input type="number" id="cpa-conversiones" required>
+                <input type="number" id="cpa-conversiones" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular CPA</button>
             </form>
         </div>
-        
-        <div id="form-cpc" class="form-wrapper" hidden>
+
+        <div id="form-cpc" class="form-wrapper" hidden style="display: none;">
             <h2>Coste por Clic (CPC)</h2>
             <form id="form-cpc-calculate">
                 <label for="cpc-coste">Coste Total (€):</label>
-                <input type="number" id="cpc-coste" required>
+                <input type="number" id="cpc-coste" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="cpc-clics">Número de Clics:</label>
-                <input type="number" id="cpc-clics" required>
+                <input type="number" id="cpc-clics" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular CPC</button>
             </form>
         </div>
-        
-        <div id="form-cpl" class="form-wrapper" hidden>
+
+        <div id="form-cpl" class="form-wrapper" hidden style="display: none;">
             <h2>Coste por Lead (CPL)</h2>
             <form id="form-cpl-calculate">
                 <label for="cpl-coste">Coste Total (€):</label>
-                <input type="number" id="cpl-coste" required>
+                <input type="number" id="cpl-coste" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="cpl-leads">Número de Leads:</label>
-                <input type="number" id="cpl-leads" required>
+                <input type="number" id="cpl-leads" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular CPL</button>
             </form>
         </div>
-        
-        <div id="form-cpm" class="form-wrapper" hidden>
+
+        <div id="form-cpm" class="form-wrapper" hidden style="display: none;">
             <h2>Coste por Mil Impresiones (CPM)</h2>
             <form id="form-cpm-calculate">
                 <label for="cpm-coste">Coste Total (€):</label>
-                <input type="number" id="cpm-coste" required>
+                <input type="number" id="cpm-coste" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="cpm-impresiones">Número de Impresiones:</label>
-                <input type="number" id="cpm-impresiones" required>
+                <input type="number" id="cpm-impresiones" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular CPM</button>
             </form>
         </div>
-        
-        <div id="form-conversionRate" class="form-wrapper" hidden>
+
+        <div id="form-conversionRate" class="form-wrapper" hidden style="display: none;">
             <h2>Tasa de Conversión</h2>
             <form id="form-conversionRate-calculate">
                 <label for="conversionRate-conversiones">Número de Conversiones:</label>
-                <input type="number" id="conversionRate-conversiones" required>
+                <input type="number" id="conversionRate-conversiones" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="conversionRate-visitantes">Número de Visitantes:</label>
-                <input type="number" id="conversionRate-visitantes" required>
+                <input type="number" id="conversionRate-visitantes" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular Tasa de Conversión</button>
             </form>
         </div>
-        
-        <div id="form-ctr" class="form-wrapper" hidden>
+
+        <div id="form-ctr" class="form-wrapper" hidden style="display: none;">
             <h2>Click-Through Rate (CTR)</h2>
             <form id="form-ctr-calculate">
                 <label for="ctr-clics">Número de Clics:</label>
-                <input type="number" id="ctr-clics" required>
+                <input type="number" id="ctr-clics" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="ctr-impresiones">Número de Impresiones:</label>
-                <input type="number" id="ctr-impresiones" required>
+                <input type="number" id="ctr-impresiones" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular CTR</button>
             </form>
         </div>
-        
-        <div id="form-ecpm" class="form-wrapper" hidden>
+
+        <div id="form-ecpm" class="form-wrapper" hidden style="display: none;">
             <h2>Effective Cost per Mille (eCPM)</h2>
             <form id="form-ecpm-calculate">
                 <label for="ecpm-totalRevenue">Total Revenue (€):</label>
-                <input type="number" id="ecpm-totalRevenue" required>
+                <input type="number" id="ecpm-totalRevenue" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="ecpm-totalImpressions">Total Impressions:</label>
-                <input type="number" id="ecpm-totalImpressions" required>
+                <input type="number" id="ecpm-totalImpressions" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular eCPM</button>
             </form>
         </div>
-        
-        <div id="form-i2c" class="form-wrapper" hidden>
+
+        <div id="form-i2c" class="form-wrapper" hidden style="display: none;">
             <h2>Impressions to Conversion (I2C)</h2>
             <form id="form-i2c-calculate">
                 <label for="i2c-conversions">Conversions:</label>
-                <input type="number" id="i2c-conversions" required>
+                <input type="number" id="i2c-conversions" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="i2c-impressions">Impressions:</label>
-                <input type="number" id="i2c-impressions" required>
+                <input type="number" id="i2c-impressions" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular I2C</button>
             </form>
         </div>
-        
-        <div id="form-impressionShare" class="form-wrapper" hidden>
+
+        <div id="form-impressionShare" class="form-wrapper" hidden style="display: none;">
             <h2>Impression Share</h2>
             <form id="form-impressionShare-calculate">
                 <label for="impressionShare-impressions">Impressions:</label>
-                <input type="number" id="impressionShare-impressions" required>
+                <input type="number" id="impressionShare-impressions" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="impressionShare-totalEligibleImpressions">Total Eligible Impressions:</label>
-                <input type="number" id="impressionShare-totalEligibleImpressions" required>
+                <input type="number" id="impressionShare-totalEligibleImpressions" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular Impression Share</button>
             </form>
         </div>
-        
-        <div id="form-ltv" class="form-wrapper" hidden>
+
+        <div id="form-ltv" class="form-wrapper" hidden style="display: none;">
             <h2>Life Time Value (LTV)</h2>
             <form id="form-ltv-calculate">
                 <label for="ltv-totalRevenue">Total Revenue (€):</label>
-                <input type="number" id="ltv-totalRevenue" required>
+                <input type="number" id="ltv-totalRevenue" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="ltv-totalCustomers">Total Customers:</label>
-                <input type="number" id="ltv-totalCustomers" required>
+                <input type="number" id="ltv-totalCustomers" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular LTV</button>
             </form>
         </div>
-        
-        <div id="form-roas" class="form-wrapper" hidden>
+
+        <div id="form-roas" class="form-wrapper" hidden style="display: none;">
             <h2>Return on Ad Spend (ROAS)</h2>
             <form id="form-roas-calculate">
                 <label for="roas-ingresos">Ingresos (€):</label>
-                <input type="number" id="roas-ingresos" required>
+                <input type="number" id="roas-ingresos" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="roas-gastos">Gastos en Publicidad (€):</label>
-                <input type="number" id="roas-gastos" required>
+                <input type="number" id="roas-gastos" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular ROAS</button>
             </form>
         </div>
-        
-        <div id="form-roi" class="form-wrapper" hidden>
+
+        <div id="form-roi" class="form-wrapper" hidden style="display: none;">
             <h2>Retorno de Inversión (ROI)</h2>
             <form id="form-roi-calculate">
                 <label for="roi-ganancias">Ganancias (€):</label>
-                <input type="number" id="roi-ganancias" required>
+                <input type="number" id="roi-ganancias" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="roi-inversion">Inversión (€):</label>
-                <input type="number" id="roi-inversion" required>
+                <input type="number" id="roi-inversion" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular ROI</button>
             </form>
         </div>
-        
-        <div id="form-rpc" class="form-wrapper" hidden>
+
+        <div id="form-rpc" class="form-wrapper" hidden style="display: none;">
             <h2>Revenue Per Click (RPC)</h2>
             <form id="form-rpc-calculate">
                 <label for="rpc-revenue">Revenue (€):</label>
-                <input type="number" id="rpc-revenue" required>
+                <input type="number" id="rpc-revenue" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="rpc-goalValue">Goal Value (€):</label>
-                <input type="number" id="rpc-goalValue" required>
+                <input type="number" id="rpc-goalValue" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="rpc-clicks">Clicks:</label>
-                <input type="number" id="rpc-clicks" required>
+                <input type="number" id="rpc-clicks" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular RPC</button>
             </form>
         </div>
@@ -263,7 +263,7 @@
 
     <!-- Pie de página -->
     <footer>
-        <p>© 2024 Calculadora de Marketing Digital</p>
+        <p>© 2024 Calculadora Mkt. Digital - Javier Rodeiro</p>
     </footer>
 
     <!-- Archivo JavaScript principal -->
