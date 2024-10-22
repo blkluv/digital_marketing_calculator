@@ -1,52 +1,94 @@
-// Objeto para almacenar los resultados por métrica
-let resultadosPorMetrica = {};
-
-// Función para calcular KPIs
-function calcularKPI(formId, inputIds, calculoFn, metrica) {
-    const form = document.querySelector(`#${formId}`);
-    if (!form) return;
-
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const valores = inputIds.map(id => parseFloat(document.querySelector(`#${id}`).value));
-        const resultado = calculoFn(...valores);
-        mostrarResultado(metrica, resultado);
-    });
-}
-
 // Inicializar los botones de métricas
 function inicializarBotones() {
     const metricButtons = document.querySelectorAll('.metric-buttons button');
+    let activeButton = null;
+
     metricButtons.forEach(button => {
-        const metric = button.getAttribute('data-metric');
         button.addEventListener('click', () => {
+            const metric = button.getAttribute('data-metric');
             mostrarFormulario(metric);
-            // Marcar el botón activo
-            metricButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+
+            if (window.innerWidth <= 768) {  // Acordeón para móvil
+                if (activeButton && activeButton !== button) {
+                    const activeForm = document.querySelector(`#form-${activeButton.getAttribute('data-metric')}`);
+                    if (activeForm) {
+                        activeForm.classList.remove('active');
+                        activeButton.classList.remove('active');
+                    }
+                }
+                const form = document.querySelector(`#form-${metric}`);
+                if (form) {
+                    form.classList.toggle('active');
+                    button.classList.toggle('active');
+                    activeButton = button.classList.contains('active') ? button : null;
+                }
+            } else {
+                metricButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            }
         });
     });
 }
 
+const kpiDefinitions = {
+    acos: "ACOS (Advertising Cost of Sale) measures the efficiency of advertising spend. It is the percentage of ad spend relative to revenue generated.",
+    adRank: "Ad Rank determines your ads position on a search engine results page. It is calculated by multiplying your CPC bid by your quality score.",
+    aov: "AOV (Average Order Value) is the average amount of money spent each time a customer places an order.",
+    atc: "% ATC (Add to Cart) shows the percentage of users who added items to the cart out of all clicks.",
+    cpa: "CPA (Cost Per Acquisition) is the cost incurred for each conversion or acquisition.",
+    cpc: "CPC (Cost Per Click) is the amount paid for each click in a pay-per-click advertising campaign.",
+    cpl: "CPL (Cost Per Lead) is the cost of acquiring a lead through a marketing campaign.",
+    cpm: "CPM (Cost Per Mille) is the cost of 1,000 ad impressions on a web page.",
+    conversionRate: "Conversion Rate is the percentage of users who take the desired action (e.g., making a purchase) out of total visitors.",
+    ctr: "CTR (Click-Through Rate) is the percentage of people who clicked on your ad after seeing it.",
+    ecpm: "eCPM (Effective Cost Per Mille) calculates the revenue generated per 1,000 impressions, combining different revenue sources.",
+    i2c: "I2C (Impressions to Conversion) measures how many impressions are needed for a conversion.",
+    impressionShare: "Impression Share is the percentage of total impressions your ads received compared to the total available impressions.",
+    ltv: "LTV (Customer Lifetime Value) is the total revenue a business can reasonably expect from a single customer account.",
+    roas: "ROAS (Return on Ad Spend) shows how much revenue is earned for every dollar spent on advertising.",
+    rpc: "RPC (Revenue Per Click) calculates the average revenue generated for each click.",
+    roi: "ROI (Return on Investment) measures the profit made from investments relative to the cost of the investment."
+};
+
+const industryBenchmarks = {
+    acos: { value: 30, unit: '%' },  // ACOS como porcentaje
+    adRank: { value: 3.0, unit: '' },  // Ad Rank sin unidad
+    atc: { value: 7.5, unit: '%' },  // Add to Cart como porcentaje
+    conversionRate: { value: 1.2, unit: '%' },  // Tasa de conversión como porcentaje
+    cpa: { value: 50, unit: '€' },  // CPA en euros
+    cpc: { value: 1.25, unit: '€' },  // CPC en euros
+    cpl: { value: 30, unit: '€' },  // CPL en euros
+    cpm: { value: 10, unit: '€' },  // CPM en euros
+    ctr: { value: 2.5, unit: '%' },  // CTR como porcentaje
+    ecpm: { value: 12, unit: '€' },  // eCPM en euros
+    i2c: { value: 1.5, unit: '%' },  // Impresiones necesarias para conversión, porcentaje
+    impressionShare: { value: 70, unit: '%' },  // Share de impresión como porcentaje
+    ltv: { value: 196.89, unit: '€' },  // LTV en euros
+    roi: { value: 150, unit: '%' },  // ROI como porcentaje
+    roas: { value: 4, unit: 'x' },  // ROAS como factor multiplicativo
+    rpc: { value: 2.5, unit: '€' }  // Revenue per click en euros
+};
+
+
+
 function mostrarFormulario(metric) {
-    // Ocultar el mensaje inicial
     const mensajeInicial = document.getElementById('mensaje-inicial');
     if (mensajeInicial) {
         mensajeInicial.style.display = 'none';
     }
 
-    // Ocultar todos los formularios
     const forms = document.querySelectorAll('.form-wrapper');
-    forms.forEach(form => {
-        form.style.display = 'none';
-    });
+    if (window.innerWidth > 768) {
+        forms.forEach(form => form.style.display = 'none');
+    }
 
-    // Mostrar el formulario seleccionado
     const selectedForm = document.getElementById(`form-${metric}`);
     if (selectedForm) {
-        selectedForm.style.display = 'block';
-        
-        // Mostrar la definición del KPI si no existe
+        if (window.innerWidth > 768) {
+            selectedForm.style.display = 'block';
+        }
+
+        // Add definition below h2 if it doesn't exist
         let definitionElement = selectedForm.querySelector('.kpi-definition');
         if (!definitionElement && kpiDefinitions[metric]) {
             const newDefinitionElement = document.createElement('p');
@@ -60,45 +102,81 @@ function mostrarFormulario(metric) {
     }
 }
 
-
-// Definiciones de KPIs
-const kpiDefinitions = {
-    cpc: "Coste por Clic (CPC): Es el coste promedio que se paga por cada clic en un anuncio.",
-    ctr: "Click-Through Rate (CTR): Es el porcentaje de personas que hacen clic en un anuncio después de verlo.",
-    roas: "Return on Ad Spend (ROAS): Es el retorno de la inversión publicitaria, que mide los ingresos generados por cada euro gastado en publicidad.",
-    cpa: "Coste por Adquisición (CPA): Es el coste promedio de adquirir un cliente o una conversión.",
-    conversionRate: "Tasa de Conversión: Es el porcentaje de visitantes que realizan una acción deseada (como una compra).",
-    cpm: "Coste por Mil Impresiones (CPM): Es el coste de mostrar un anuncio mil veces.",
-    roi: "Retorno de Inversión (ROI): Es el beneficio obtenido en relación con la inversión realizada, expresado en porcentaje.",
-    cpl: "Coste por Lead (CPL): Es el coste promedio de adquirir un lead o prospecto.",
-    atc: "Porcentaje de Add to Cart (% ATC): Es el porcentaje de clics que resultan en un evento de 'Añadir al Carrito'.",
-    ltv: "Life Time Value (LTV): Es el valor estimado de los ingresos generados por un cliente a lo largo de su relación con la empresa.",
-    adRank: "Ad Rank: Es una métrica que determina la posición de un anuncio en los resultados de búsqueda.",
-    acos: "Average Cost of Sale (ACOS): Es el porcentaje de ventas que se gastan en publicidad.",
-    i2c: "Impressions to Conversion (I2C): Es el porcentaje de impresiones que resultan en una conversión.",
-    aov: "Average Order Value (AOV): Es el valor promedio de los pedidos realizados por los clientes.",
-    impressionShare: "Impression Share: Es la proporción de impresiones que recibe un anuncio en comparación con el número total de impresiones posibles.",
-    ecpm: "Effective Cost per Mille (eCPM): Es el coste efectivo por mil impresiones, que mide la rentabilidad de un anuncio.",
-    rpc: "Revenue Per Click (RPC): Es el ingreso generado por cada clic en un anuncio."
-};
-
-// Función para mostrar el resultado en la página
-function mostrarResultado(metrica, mensaje) {
-    resultadosPorMetrica[metrica] = mensaje;
-    const resultadoDiv = document.getElementById('resultados');
-    resultadoDiv.innerHTML = `<p>${mensaje}</p>`;
-
-    // Mostrar la sección de resultados
-    document.getElementById('result-section').hidden = false;
-
-    // Mostrar el botón de copiar al portapapeles
-    mostrarBotonCopiar();
-
-    actualizarHistorial(metrica, mensaje);
-    actualizarGrafico();
+// Validación de formularios
+function validateFormInputs(inputIds) {
+    let isValid = true;
+    inputIds.forEach(id => {
+        const inputElement = document.querySelector(`#${id}`);
+        if (!inputElement.value || parseFloat(inputElement.value) < 0) {
+            isValid = false;
+            inputElement.classList.add('input-error');
+            const errorMessage = inputElement.nextElementSibling;
+            if (errorMessage) {
+                errorMessage.style.display = 'block';
+            }
+        } else {
+            inputElement.classList.remove('input-error');
+            const errorMessage = inputElement.nextElementSibling;
+            if (errorMessage) {
+                errorMessage.style.display = 'none';
+            }
+        }
+    });
+    return isValid;
 }
 
-// Función para mostrar el botón de copiar al portapapeles
+
+// Calcular KPIs
+function calcularKPI(formId, inputIds, calculoFn, metrica) {
+    const form = document.querySelector(`#${formId}`);
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const isValid = validateFormInputs(inputIds);
+        if (!isValid) return;
+
+        const valores = inputIds.map(id => parseFloat(document.querySelector(`#${id}`).value));
+        const resultado = calculoFn(...valores);
+        mostrarResultado(metrica, resultado);
+    });
+}
+
+function mostrarResultado(metrica, resultado) {
+    const benchmark = industryBenchmarks[metrica];
+    let benchmarkMessage = '';
+
+    if (benchmark !== undefined) {
+        const benchmarkValue = benchmark.value;
+        const benchmarkUnit = benchmark.unit || '';
+
+        // Asegurar que el valor de resultado es numérico
+        const numericResult = parseFloat(resultado.replace(/[^0-9.-]+/g,""));
+
+        if (numericResult > benchmarkValue) {
+            benchmarkMessage = `Tu resultado está por encima del promedio de ecommerce (${benchmarkValue}${benchmarkUnit}). ¡Buen trabajo!`;
+        } else if (numericResult < benchmarkValue) {
+            benchmarkMessage = `Tu resultado está por debajo del promedio de ecommerce (${benchmarkValue}${benchmarkUnit}).`;
+        } else {
+            benchmarkMessage = `Tu resultado está en el promedio de ecommerce (${benchmarkValue}${benchmarkUnit}).`;
+        }
+    }
+
+    // Mostrar resultado en texto
+    const resultadoDiv = document.getElementById('resultados');
+    resultadoDiv.innerHTML = `<p>${resultado}</p><p>${benchmarkMessage}</p>`;
+    document.getElementById('result-section').hidden = false;
+
+    // Actualizar gráfico con el valor calculado y el benchmark
+    actualizarGrafico(metrica, resultado);
+
+    mostrarBotonCopiar();
+    actualizarHistorial(metrica, resultado);
+}
+
+
+
+// Botón de copiar al portapapeles
 function mostrarBotonCopiar() {
     const copyButton = document.getElementById('copy-button');
     if (copyButton) {
@@ -112,7 +190,7 @@ function mostrarBotonCopiar() {
     }
 }
 
-// Función para actualizar el historial de cálculos
+// Actualizar historial de cálculos
 function actualizarHistorial(metrica, mensaje) {
     const historySection = document.getElementById('calculation-history');
     const listItem = document.createElement('li');
@@ -121,27 +199,30 @@ function actualizarHistorial(metrica, mensaje) {
     document.getElementById('history-section').hidden = false;
 }
 
-// Función para actualizar y mostrar el gráfico
-function actualizarGrafico() {
+function actualizarGrafico(metrica, valorCalculado) {
     const ctx = document.getElementById('resultChart').getContext('2d');
-    const data = Object.entries(resultadosPorMetrica).map(([key, value]) => ({
-        metrica: key,
-        valor: parseFloat(value.replace(/[^0-9.-]+/g,""))
-    }));
 
+    // Obtener el benchmark de la métrica actual
+    const benchmark = industryBenchmarks[metrica] ? industryBenchmarks[metrica].value : null;
+    
+    const labels = ['Valor Calculado', 'Benchmark'];
+    const data = [parseFloat(valorCalculado.replace(/[^0-9.-]+/g,"")), benchmark];  // Valor calculado y benchmark
+    
+    // Destruir el gráfico anterior si existe
     if (window.myChart) {
         window.myChart.destroy();
     }
 
+    // Crear el nuevo gráfico con dos barras (valor calculado vs benchmark)
     window.myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: data.map(item => item.metrica.toUpperCase()),
+            labels: labels,
             datasets: [{
-                label: 'Valor',
-                data: data.map(item => item.valor),
-                backgroundColor: 'rgba(0, 123, 255, 0.5)',
-                borderColor: 'rgba(0, 123, 255, 1)',
+                label: metrica.toUpperCase(),
+                data: data,
+                backgroundColor: ['rgba(0, 123, 255, 0.5)', 'rgba(255, 99, 132, 0.5)'],
+                borderColor: ['rgba(0, 123, 255, 1)', 'rgba(255, 99, 132, 1)'],
                 borderWidth: 1
             }]
         },
@@ -156,15 +237,12 @@ function actualizarGrafico() {
     });
 }
 
-// Función para cambiar el modo oscuro
+// Cambiar el tema oscuro
 function toggleDarkMode() {
     const body = document.body;
     body.classList.toggle('dark-mode');
-
-    // Cambiar los iconos
     const lightIcon = document.getElementById('light-icon');
     const darkIcon = document.getElementById('dark-icon');
-
     if (body.classList.contains('dark-mode')) {
         lightIcon.style.display = 'none';
         darkIcon.style.display = 'inline';
@@ -174,49 +252,41 @@ function toggleDarkMode() {
     }
 }
 
-// Función para reiniciar los cálculos
+// Reiniciar cálculos
 function resetCalculations() {
-    // Reiniciar los resultados
     resultadosPorMetrica = {};
     document.getElementById('resultados').innerHTML = '';
     document.getElementById('result-section').hidden = true;
 
-    // Reiniciar el historial
     const historySection = document.getElementById('calculation-history');
     historySection.innerHTML = '';
     document.getElementById('history-section').hidden = true;
 
-    // Reiniciar los formularios
     const forms = document.querySelectorAll('form');
     forms.forEach(form => form.reset());
 
-    // Destruir el gráfico si existe
     if (window.myChart) {
         window.myChart.destroy();
     }
 
-    // Desactivar botones activos
     const metricButtons = document.querySelectorAll('.metric-buttons button');
     metricButtons.forEach(btn => btn.classList.remove('active'));
 
-    // Mostrar el mensaje inicial
     const mensajeInicial = document.getElementById('mensaje-inicial');
     if (mensajeInicial) {
         mensajeInicial.style.display = 'block';
     }
 
-    // Ocultar todos los formularios
     const formWrappers = document.querySelectorAll('.form-wrapper');
     formWrappers.forEach(formWrapper => {
         formWrapper.style.display = 'none';
     });
 }
 
-// Inicializar la aplicación cuando el DOM esté cargado
+// Inicializar aplicación
 document.addEventListener('DOMContentLoaded', () => {
+    resetCalculations();
     inicializarBotones();
-    
-    // Configurar los cálculos de KPIs
     calcularKPI('form-cpc', ['cpc-coste', 'cpc-clics'], 
         (coste, clics) => `CPC: ${(coste / clics).toFixed(2)} €`, 'cpc');
     calcularKPI('form-ctr', ['ctr-clics', 'ctr-impresiones'], 
@@ -251,9 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
         (totalRevenue, totalImpressions) => `eCPM: ${((totalRevenue / totalImpressions) * 1000).toFixed(2)} €`, 'ecpm');
     calcularKPI('form-rpc', ['rpc-revenue', 'rpc-goalValue', 'rpc-clicks'], 
         (revenue, goalValue, clicks) => `RPC: ${((revenue + goalValue) / clicks).toFixed(2)} €`, 'rpc');
-});
 
-// Añadir eventos para el cambio de tema y reinicio
     document.getElementById('theme-toggle').addEventListener('click', toggleDarkMode);
     document.getElementById('reset-button').addEventListener('click', resetCalculations);
 
@@ -269,3 +337,24 @@ document.addEventListener('DOMContentLoaded', () => {
         lightIcon.style.display = 'inline';
         darkIcon.style.display = 'none';
     }
+
+    // Añadir evento de resize para manejar cambios de tamaño de ventana
+    window.addEventListener('resize', () => {
+        const forms = document.querySelectorAll('.form-wrapper');
+        if (window.innerWidth > 768) {
+            // En desktop, revertir a comportamiento normal
+            forms.forEach(form => {
+                form.classList.remove('active');
+                form.style.display = 'none';
+            });
+            const activeButton = document.querySelector('.metric-buttons button.active');
+            if (activeButton) {
+                const metric = activeButton.getAttribute('data-metric');
+                const activeForm = document.getElementById(`form-${metric}`);
+                if (activeForm) {
+                    activeForm.style.display = 'block';
+                }
+            }
+        }
+    });
+});
