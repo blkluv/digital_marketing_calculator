@@ -1,4 +1,4 @@
-// Inicializar los botones de métricas
+// Initialize metric buttons
 function inicializarBotones() {
     const metricButtons = document.querySelectorAll('.metric-buttons button');
     let activeButton = null;
@@ -6,9 +6,8 @@ function inicializarBotones() {
     metricButtons.forEach(button => {
         button.addEventListener('click', () => {
             const metric = button.getAttribute('data-metric');
-            mostrarFormulario(metric);
 
-            if (window.innerWidth <= 768) {  // Acordeón para móvil
+            if (window.innerWidth <= 768) {  // Accordion for mobile
                 if (activeButton && activeButton !== button) {
                     const activeForm = document.querySelector(`#form-${activeButton.getAttribute('data-metric')}`);
                     if (activeForm) {
@@ -20,9 +19,15 @@ function inicializarBotones() {
                 if (form) {
                     form.classList.toggle('active');
                     button.classList.toggle('active');
-                    activeButton = button.classList.contains('active') ? button : null;
+                    if (button.classList.contains('active')) {
+                        mostrarFormulario(metric);
+                        activeButton = button;
+                    } else {
+                        activeButton = null;
+                    }
                 }
-            } else {
+            } else {  // Desktop behavior
+                mostrarFormulario(metric);
                 metricButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
             }
@@ -51,25 +56,23 @@ const kpiDefinitions = {
 };
 
 const industryBenchmarks = {
-    acos: { value: 30, unit: '%' },  // ACOS como porcentaje
-    adRank: { value: 3.0, unit: '' },  // Ad Rank sin unidad
-    atc: { value: 7.5, unit: '%' },  // Add to Cart como porcentaje
-    conversionRate: { value: 1.2, unit: '%' },  // Tasa de conversión como porcentaje
-    cpa: { value: 50, unit: '€' },  // CPA en euros
-    cpc: { value: 1.25, unit: '€' },  // CPC en euros
-    cpl: { value: 30, unit: '€' },  // CPL en euros
-    cpm: { value: 10, unit: '€' },  // CPM en euros
-    ctr: { value: 2.5, unit: '%' },  // CTR como porcentaje
-    ecpm: { value: 12, unit: '€' },  // eCPM en euros
-    i2c: { value: 1.5, unit: '%' },  // Impresiones necesarias para conversión, porcentaje
-    impressionShare: { value: 70, unit: '%' },  // Share de impresión como porcentaje
-    ltv: { value: 196.89, unit: '€' },  // LTV en euros
-    roi: { value: 150, unit: '%' },  // ROI como porcentaje
-    roas: { value: 4, unit: 'x' },  // ROAS como factor multiplicativo
-    rpc: { value: 2.5, unit: '€' }  // Revenue per click en euros
+    acos: { value: 30, unit: '%' },
+    adRank: { value: 3.0, unit: '' },
+    atc: { value: 7.5, unit: '%' },
+    conversionRate: { value: 1.2, unit: '%' },
+    cpa: { value: 50, unit: '€' },
+    cpc: { value: 1.25, unit: '€' },
+    cpl: { value: 30, unit: '€' },
+    cpm: { value: 10, unit: '€' },
+    ctr: { value: 2.5, unit: '%' },
+    ecpm: { value: 12, unit: '€' },
+    i2c: { value: 1.5, unit: '%' },
+    impressionShare: { value: 70, unit: '%' },
+    ltv: { value: 196.89, unit: '€' },
+    roi: { value: 150, unit: '%' },
+    roas: { value: 4, unit: 'x' },
+    rpc: { value: 2.5, unit: '€' }
 };
-
-
 
 function mostrarFormulario(metric) {
     const mensajeInicial = document.getElementById('mensaje-inicial');
@@ -102,7 +105,7 @@ function mostrarFormulario(metric) {
     }
 }
 
-// Validación de formularios
+// Form validation
 function validateFormInputs(inputIds) {
     let isValid = true;
     inputIds.forEach(id => {
@@ -125,8 +128,7 @@ function validateFormInputs(inputIds) {
     return isValid;
 }
 
-
-// Calcular KPIs
+// Calculate KPIs
 function calcularKPI(formId, inputIds, calculoFn, metrica) {
     const form = document.querySelector(`#${formId}`);
     if (!form) return;
@@ -150,7 +152,7 @@ function mostrarResultado(metrica, resultado) {
         const benchmarkValue = benchmark.value;
         const benchmarkUnit = benchmark.unit || '';
 
-        // Asegurar que el valor de resultado es numérico
+        // Ensure the result is numeric
         const numericResult = parseFloat(resultado.replace(/[^0-9.-]+/g,""));
 
         if (numericResult > benchmarkValue) {
@@ -162,21 +164,19 @@ function mostrarResultado(metrica, resultado) {
         }
     }
 
-    // Mostrar resultado en texto
+    // Show result in text
     const resultadoDiv = document.getElementById('resultados');
     resultadoDiv.innerHTML = `<p>${resultado}</p><p>${benchmarkMessage}</p>`;
     document.getElementById('result-section').hidden = false;
 
-    // Actualizar gráfico con el valor calculado y el benchmark
+    // Update chart with calculated value and benchmark
     actualizarGrafico(metrica, resultado);
 
     mostrarBotonCopiar();
     actualizarHistorial(metrica, resultado);
 }
 
-
-
-// Botón de copiar al portapapeles
+// Copy to clipboard button
 function mostrarBotonCopiar() {
     const copyButton = document.getElementById('copy-button');
     if (copyButton) {
@@ -190,7 +190,7 @@ function mostrarBotonCopiar() {
     }
 }
 
-// Actualizar historial de cálculos
+// Update calculation history
 function actualizarHistorial(metrica, mensaje) {
     const historySection = document.getElementById('calculation-history');
     const listItem = document.createElement('li');
@@ -202,18 +202,18 @@ function actualizarHistorial(metrica, mensaje) {
 function actualizarGrafico(metrica, valorCalculado) {
     const ctx = document.getElementById('resultChart').getContext('2d');
 
-    // Obtener el benchmark de la métrica actual
+    // Get benchmark for current metric
     const benchmark = industryBenchmarks[metrica] ? industryBenchmarks[metrica].value : null;
     
     const labels = ['Valor Calculado', 'Benchmark'];
-    const data = [parseFloat(valorCalculado.replace(/[^0-9.-]+/g,"")), benchmark];  // Valor calculado y benchmark
+    const data = [parseFloat(valorCalculado.replace(/[^0-9.-]+/g,"")), benchmark];
     
-    // Destruir el gráfico anterior si existe
+    // Destroy previous chart if exists
     if (window.myChart) {
         window.myChart.destroy();
     }
 
-    // Crear el nuevo gráfico con dos barras (valor calculado vs benchmark)
+    // Create new chart with two bars (calculated value vs benchmark)
     window.myChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -237,7 +237,7 @@ function actualizarGrafico(metrica, valorCalculado) {
     });
 }
 
-// Cambiar el tema oscuro
+// Toggle dark mode
 function toggleDarkMode() {
     const body = document.body;
     body.classList.toggle('dark-mode');
@@ -252,7 +252,7 @@ function toggleDarkMode() {
     }
 }
 
-// Reiniciar cálculos
+// Reset calculations
 function resetCalculations() {
     resultadosPorMetrica = {};
     document.getElementById('resultados').innerHTML = '';
@@ -283,7 +283,7 @@ function resetCalculations() {
     });
 }
 
-// Inicializar aplicación
+// Initialize application
 document.addEventListener('DOMContentLoaded', () => {
     resetCalculations();
     inicializarBotones();
@@ -307,54 +307,54 @@ document.addEventListener('DOMContentLoaded', () => {
         (clicks, events) => `% ATC: ${((events / clicks) * 100).toFixed(2)}%`, 'atc');
     calcularKPI('form-ltv', ['ltv-totalRevenue', 'ltv-totalCustomers'], 
         (totalRevenue, totalCustomers) => `LTV: ${(totalRevenue / totalCustomers).toFixed(2)} €`, 'ltv');
-    calcularKPI('form-adRank', ['adRank-cpcBid', 'adRank-qualityScore'], 
-        (cpcBid, qualityScore) => `Ad Rank: ${(cpcBid * qualityScore).toFixed(2)}`, 'adRank');
-    calcularKPI('form-acos', ['acos-totalCost', 'acos-totalRevenue'], 
-        (totalCost, totalRevenue) => `ACOS: ${((totalCost / totalRevenue) * 100).toFixed(2)}%`, 'acos');
-    calcularKPI('form-i2c', ['i2c-conversions', 'i2c-impressions'], 
-        (conversions, impressions) => `I2C: ${((conversions / impressions) * 100).toFixed(2)}%`, 'i2c');
-    calcularKPI('form-aov', ['aov-totalRevenue', 'aov-totalConversions'], 
-        (totalRevenue, totalConversions) => `AOV: ${(totalRevenue / totalConversions).toFixed(2)} €`, 'aov');
-    calcularKPI('form-impressionShare', ['impressionShare-impressions', 'impressionShare-totalEligibleImpressions'], 
-        (impressions, totalEligibleImpressions) => `Impression Share: ${((impressions / totalEligibleImpressions) * 100).toFixed(2)}%`, 'impressionShare');
-    calcularKPI('form-ecpm', ['ecpm-totalRevenue', 'ecpm-totalImpressions'], 
-        (totalRevenue, totalImpressions) => `eCPM: ${((totalRevenue / totalImpressions) * 1000).toFixed(2)} €`, 'ecpm');
-    calcularKPI('form-rpc', ['rpc-revenue', 'rpc-goalValue', 'rpc-clicks'], 
-        (revenue, goalValue, clicks) => `RPC: ${((revenue + goalValue) / clicks).toFixed(2)} €`, 'rpc');
-
-    document.getElementById('theme-toggle').addEventListener('click', toggleDarkMode);
-    document.getElementById('reset-button').addEventListener('click', resetCalculations);
-
-    // Configurar el estado inicial de los iconos de tema
-    const body = document.body;
-    const lightIcon = document.getElementById('light-icon');
-    const darkIcon = document.getElementById('dark-icon');
-
-    if (body.classList.contains('dark-mode')) {
-        lightIcon.style.display = 'none';
-        darkIcon.style.display = 'inline';
-    } else {
-        lightIcon.style.display = 'inline';
-        darkIcon.style.display = 'none';
-    }
-
-    // Añadir evento de resize para manejar cambios de tamaño de ventana
-    window.addEventListener('resize', () => {
-        const forms = document.querySelectorAll('.form-wrapper');
-        if (window.innerWidth > 768) {
-            // En desktop, revertir a comportamiento normal
-            forms.forEach(form => {
-                form.classList.remove('active');
-                form.style.display = 'none';
-            });
-            const activeButton = document.querySelector('.metric-buttons button.active');
-            if (activeButton) {
-                const metric = activeButton.getAttribute('data-metric');
-                const activeForm = document.getElementById(`form-${metric}`);
-                if (activeForm) {
-                    activeForm.style.display = 'block';
+        calcularKPI('form-adRank', ['adRank-cpcBid', 'adRank-qualityScore'], 
+            (cpcBid, qualityScore) => `Ad Rank: ${(cpcBid * qualityScore).toFixed(2)}`, 'adRank');
+        calcularKPI('form-acos', ['acos-totalCost', 'acos-totalRevenue'], 
+            (totalCost, totalRevenue) => `ACOS: ${((totalCost / totalRevenue) * 100).toFixed(2)}%`, 'acos');
+        calcularKPI('form-i2c', ['i2c-conversions', 'i2c-impressions'], 
+            (conversions, impressions) => `I2C: ${((conversions / impressions) * 100).toFixed(2)}%`, 'i2c');
+        calcularKPI('form-aov', ['aov-totalRevenue', 'aov-totalConversions'], 
+            (totalRevenue, totalConversions) => `AOV: ${(totalRevenue / totalConversions).toFixed(2)} €`, 'aov');
+        calcularKPI('form-impressionShare', ['impressionShare-impressions', 'impressionShare-totalEligibleImpressions'], 
+            (impressions, totalEligibleImpressions) => `Impression Share: ${((impressions / totalEligibleImpressions) * 100).toFixed(2)}%`, 'impressionShare');
+        calcularKPI('form-ecpm', ['ecpm-totalRevenue', 'ecpm-totalImpressions'], 
+            (totalRevenue, totalImpressions) => `eCPM: ${((totalRevenue / totalImpressions) * 1000).toFixed(2)} €`, 'ecpm');
+        calcularKPI('form-rpc', ['rpc-revenue', 'rpc-goalValue', 'rpc-clicks'], 
+            (revenue, goalValue, clicks) => `RPC: ${((revenue + goalValue) / clicks).toFixed(2)} €`, 'rpc');
+    
+        document.getElementById('theme-toggle').addEventListener('click', toggleDarkMode);
+        document.getElementById('reset-button').addEventListener('click', resetCalculations);
+    
+        // Set initial state of theme icons
+        const body = document.body;
+        const lightIcon = document.getElementById('light-icon');
+        const darkIcon = document.getElementById('dark-icon');
+    
+        if (body.classList.contains('dark-mode')) {
+            lightIcon.style.display = 'none';
+            darkIcon.style.display = 'inline';
+        } else {
+            lightIcon.style.display = 'inline';
+            darkIcon.style.display = 'none';
+        }
+    
+        // Add resize event listener to handle window size changes
+        window.addEventListener('resize', () => {
+            const forms = document.querySelectorAll('.form-wrapper');
+            if (window.innerWidth > 768) {
+                // Revert to normal behavior on desktop
+                forms.forEach(form => {
+                    form.classList.remove('active');
+                    form.style.display = 'none';
+                });
+                const activeButton = document.querySelector('.metric-buttons button.active');
+                if (activeButton) {
+                    const metric = activeButton.getAttribute('data-metric');
+                    const activeForm = document.getElementById(`form-${metric}`);
+                    if (activeForm) {
+                        activeForm.style.display = 'block';
+                    }
                 }
             }
-        }
+        });
     });
-});
