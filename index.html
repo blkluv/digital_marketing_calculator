@@ -10,17 +10,17 @@
     <!-- Archivo CSS -->
     <link rel="stylesheet" href="styles.css">
     <!-- Chart.js para gráficos -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- Botón para cambiar el tema -->
-    <div id="theme-toggle" aria-label="Cambiar entre modo claro y oscuro" role="button" tabindex="0">
+    <div id="theme-toggle" aria-label="Cambiar entre modo claro y oscuro">
         <i id="light-icon" class="fas fa-sun" aria-hidden="true"></i>
         <i id="dark-icon" class="fas fa-moon" aria-hidden="true"></i>
     </div>
-
+    
     <!-- Botón para reiniciar cálculos -->
-    <div id="reset-button" aria-label="Reiniciar cálculos" role="button" tabindex="0">
+    <div id="reset-button" aria-label="Reiniciar cálculos">
         <i class="fas fa-undo"></i>
     </div>
 
@@ -38,52 +38,226 @@
 
         <!-- Botones de métricas -->
         <div class="metric-buttons">
-            <button data-metric="acos" aria-label="Calcular ACOS">ACOS</button>
-            <button data-metric="adRank" aria-label="Calcular Ad Rank">Ad Rank</button>
-            <button data-metric="aov" aria-label="Calcular AOV">AOV</button>
-            <button data-metric="atc" aria-label="Calcular % ATC">% ATC</button>
-            <button data-metric="cpa" aria-label="Calcular CPA">CPA</button>
-            <button data-metric="cpc" aria-label="Calcular CPC">CPC</button>
-            <button data-metric="cpl" aria-label="Calcular CPL">CPL</button>
-            <button data-metric="cpm" aria-label="Calcular CPM">CPM</button>
-            <button data-metric="conversionRate" aria-label="Calcular Tasa de Conversión">Tasa de Conversión</button>
-            <button data-metric="ctr" aria-label="Calcular CTR">CTR</button>
-            <button data-metric="ecpm" aria-label="Calcular eCPM">eCPM</button>
-            <button data-metric="i2c" aria-label="Calcular I2C">I2C</button>
-            <button data-metric="impressionShare" aria-label="Calcular Impression Share">Impression Share</button>
-            <button data-metric="ltv" aria-label="Calcular LTV">LTV</button>
-            <button data-metric="roas" aria-label="Calcular ROAS">ROAS</button>
-            <button data-metric="rpc" aria-label="Calcular RPC">RPC</button>
-            <button data-metric="roi" aria-label="Calcular ROI">ROI</button>
+            <button data-metric="acos">ACOS</button>
+            <button data-metric="adRank">Ad Rank</button>
+            <button data-metric="aov">AOV</button>
+            <button data-metric="atc">% ATC</button>
+            <button data-metric="cpa">CPA</button>
+            <button data-metric="cpc">CPC</button>
+            <button data-metric="cpl">CPL</button>
+            <button data-metric="cpm">CPM</button>
+            <button data-metric="conversionRate">Tasa de Conversión</button>
+            <button data-metric="ctr">CTR</button>
+            <button data-metric="ecpm">eCPM</button>
+            <button data-metric="i2c">I2C</button>
+            <button data-metric="impressionShare">Impression Share</button>
+            <button data-metric="ltv">LTV</button>
+            <button data-metric="roas">ROAS</button>
+            <button data-metric="rpc">RPC</button>
+            <button data-metric="roi">ROI</button>
         </div>
 
         <!-- Formularios de cálculos -->
-        <div id="form-acos" class="form-wrapper" hidden>
+        <div id="form-acos" class="form-wrapper" hidden style="display: none;">
             <h2>Average Cost of Sale (ACOS)</h2>
-            <form id="form-acos-calculate" aria-label="Formulario para calcular ACOS">
+            <form id="form-acos-calculate">
                 <label for="acos-totalCost">Total Cost (€):</label>
-                <input type="number" id="acos-totalCost" required min="0">
-                <span class="error-message" aria-live="polite" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <input type="number" id="acos-totalCost" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <label for="acos-totalRevenue">Total Revenue (€):</label>
-                <input type="number" id="acos-totalRevenue" required min="0">
-                <span class="error-message" aria-live="polite" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <input type="number" id="acos-totalRevenue" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
                 <button type="submit">Calcular ACOS</button>
             </form>
         </div>
+        
+        <div id="form-adRank" class="form-wrapper" hidden style="display: none;">
+            <h2>Ad Rank</h2>
+            <form id="form-adRank-calculate">
+                <label for="adRank-cpcBid">CPC Bid (€):</label>
+                <input type="number" id="adRank-cpcBid" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="adRank-qualityScore">Quality Score:</label>
+                <input type="number" id="adRank-qualityScore" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular Ad Rank</button>
+            </form>
+        </div>
+        
+        <div id="form-aov" class="form-wrapper" hidden style="display: none;">
+            <h2>Average Order Value (AOV)</h2>
+            <form id="form-aov-calculate">
+                <label for="aov-totalRevenue">Total Revenue (€):</label>
+                <input type="number" id="aov-totalRevenue" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="aov-totalConversions">Total Conversions:</label>
+                <input type="number" id="aov-totalConversions" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular AOV</button>
+            </form>
+        </div>
+        
+        <div id="form-atc" class="form-wrapper" hidden style="display: none;">
+            <h2>Porcentaje de Add to Cart (% ATC)</h2>
+            <form id="form-atc-calculate">
+                <label for="atc-clicks">Número de Clics:</label>
+                <input type="number" id="atc-clicks" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="atc-events">Eventos de Add to Cart:</label>
+                <input type="number" id="atc-events" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular % ATC</button>
+            </form>
+        </div>
+        
+        <div id="form-cpa" class="form-wrapper" hidden style="display: none;">
+            <h2>Coste por Adquisición (CPA)</h2>
+            <form id="form-cpa-calculate">
+                <label for="cpa-gastos">Gastos en Publicidad (€):</label>
+                <input type="number" id="cpa-gastos" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="cpa-conversiones">Número de Conversiones:</label>
+                <input type="number" id="cpa-conversiones" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular CPA</button>
+            </form>
+        </div>
 
-        <!-- Repite el patrón para otros formularios -->
+        <div id="form-cpc" class="form-wrapper" hidden style="display: none;">
+            <h2>Coste por Clic (CPC)</h2>
+            <form id="form-cpc-calculate">
+                <label for="cpc-coste">Coste Total (€):</label>
+                <input type="number" id="cpc-coste" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="cpc-clics">Número de Clics:</label>
+                <input type="number" id="cpc-clics" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular CPC</button>
+            </form>
+        </div>
+
+        <div id="form-cpl" class="form-wrapper" hidden style="display: none;">
+            <h2>Coste por Lead (CPL)</h2>
+            <form id="form-cpl-calculate">
+                <label for="cpl-coste">Coste Total (€):</label>
+                <input type="number" id="cpl-coste" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="cpl-leads">Número de Leads:</label>
+                <input type="number" id="cpl-leads" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular CPL</button>
+            </form>
+        </div>
+
+        <div id="form-cpm" class="form-wrapper" hidden style="display: none;">
+            <h2>Coste por Mil Impresiones (CPM)</h2>
+            <form id="form-cpm-calculate">
+                <label for="cpm-coste">Coste Total (€):</label>
+                <input type="number" id="cpm-coste" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="cpm-impresiones">Número de Impresiones:</label>
+                <input type="number" id="cpm-impresiones" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular CPM</button>
+            </form>
+        </div>
+
+        <div id="form-conversionRate" class="form-wrapper" hidden style="display: none;">
+            <h2>Tasa de Conversión</h2>
+            <form id="form-conversionRate-calculate">
+                <label for="conversionRate-conversiones">Número de Conversiones:</label>
+                <input type="number" id="conversionRate-conversiones" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="conversionRate-visitantes">Número de Visitantes:</label>
+                <input type="number" id="conversionRate-visitantes" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular Tasa de Conversión</button>
+            </form>
+        </div>
+
+        <div id="form-ctr" class="form-wrapper" hidden style="display: none;">
+            <h2>Click-Through Rate (CTR)</h2>
+            <form id="form-ctr-calculate">
+                <label for="ctr-clics">Número de Clics:</label>
+                <input type="number" id="ctr-clics" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="ctr-impresiones">Número de Impresiones:</label>
+                <input type="number" id="ctr-impresiones" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular CTR</button>
+            </form>
+        </div>
+
+        <div id="form-ecpm" class="form-wrapper" hidden style="display: none;">
+            <h2>Effective Cost per Mille (eCPM)</h2>
+            <form id="form-ecpm-calculate">
+                <label for="ecpm-totalRevenue">Total Revenue (€):</label>
+                <input type="number" id="ecpm-totalRevenue" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="ecpm-totalImpressions">Total Impressions:</label>
+                <input type="number" id="ecpm-totalImpressions" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular eCPM</button>
+            </form>
+        </div>
+
+        <div id="form-i2c" class="form-wrapper" hidden style="display: none;">
+            <h2>Impressions to Conversion (I2C)</h2>
+            <form id="form-i2c-calculate">
+                <label for="i2c-conversions">Conversions:</label>
+                <input type="number" id="i2c-conversions" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="i2c-impressions">Impressions:</label>
+                <input type="number" id="i2c-impressions" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular I2C</button>
+            </form>
+        </div>
+
+        <div id="form-impressionShare" class="form-wrapper" hidden style="display: none;">
+            <h2>Impression Share</h2>
+            <form id="form-impressionShare-calculate">
+                <label for="impressionShare-impressions">Impressions:</label>
+                <input type="number" id="impressionShare-impressions" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="impressionShare-totalEligibleImpressions">Total Eligible Impressions:</label>
+                <input type="number" id="impressionShare-totalEligibleImpressions" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular Impression Share</button>
+            </form>
+        </div>
+
+        <div id="form-ltv" class="form-wrapper" hidden style="display: none;">
+            <h2>Life Time Value (LTV)</h2>
+            <form id="form-ltv-calculate">
+                <label for="ltv-totalRevenue">Total Revenue (€):</label>
+                <input type="number" id="ltv-totalRevenue" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="ltv-totalCustomers">Total Customers:</label>
+                <input type="number" id="ltv-totalCustomers" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular LTV</button>
+            </form>
+        </div>
+
+        <div id="form-roas" class="form-wrapper" hidden style="display: none;">
+            <h2>Return on Ad Spend (ROAS)</h2>
+            <form id="form-roas-calculate">
+                <label for="roas-ingresos">Ingresos (€):</label>
+                <input type="number" id="roas-ingresos" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="roas-gastos">Gastos en Publicidad (€):</label>
+                <input type="number" id="roas-gastos" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular ROAS</button>
+            </form>
+        </div>
+
+        <div id="form-roi" class="form-wrapper" hidden style="display: none;">
+            <h2>Retorno de Inversión (ROI)</h2>
+            <form id="form-roi-calculate">
+                <label for="roi-ganancias">Ganancias (€):</label>
+                <input type="number" id="roi-ganancias" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="roi-inversion">Inversión (€):</label>
+                <input type="number" id="roi-inversion" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular ROI</button>
+            </form>
+        </div>
+
+        <div id="form-rpc" class="form-wrapper" hidden style="display: none;">
+            <h2>Revenue Per Click (RPC)</h2>
+            <form id="form-rpc-calculate">
+                <label for="rpc-revenue">Revenue (€):</label>
+                <input type="number" id="rpc-revenue" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="rpc-goalValue">Goal Value (€):</label>
+                <input type="number" id="rpc-goalValue" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <label for="rpc-clicks">Clicks:</label>
+                <input type="number" id="rpc-clicks" required min="0"><span class="error-message" style="display:none; color: red;">Por favor, ingresa un valor válido.</span>
+                <button type="submit">Calcular RPC</button>
+            </form>
+        </div>
 
         <div id="result-section" hidden>
             <h2>Resultados</h2>
-            <div id="resultados" aria-live="polite"></div>
-            <button id="copy-button" hidden aria-label="Copiar al Portapapeles">Copiar al Portapapeles</button>
-            <canvas id="resultChart" aria-hidden="true"></canvas>
+            <div id="resultados"></div>
+            <button id="copy-button" hidden>Copiar al Portapapeles</button>
+            <canvas id="resultChart"></canvas>
         </div>
 
         <!-- Sección de historial de cálculos -->
         <div id="history-section" hidden>
             <h2>Historial de Cálculos</h2>
-            <ul id="calculation-history" aria-live="polite"></ul>
+            <ul id="calculation-history"></ul>
         </div>
     </main>
 
@@ -93,6 +267,6 @@
     </footer>
 
     <!-- Archivo JavaScript principal -->
-    <script src="script.js" defer></script>
+    <script src="script.js"></script>
 </body>
 </html>
